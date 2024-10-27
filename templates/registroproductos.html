@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Registro de productos</title>
+</head>
+<body>
+    <a href="/"><button>VOLVER AL MENU</button></a>
+    <H1>Registro de productos</H1>
+    <form action="{{url_for('reg_productos')}}" method="POST">
+        <table class="table-form">
+            <tr>
+                <td>Producto:</td>
+                <td><input type="text" name="producto" required></td>
+            </tr>
+            <tr>
+                <td>Categoria:</td>
+                <td>
+                    <select name="categoria" >
+                        <option value="verduras">verduras</option>
+                        <option value="bebidas">bebidas</option>
+                        <option value="frutas">frutas</option>
+                        <option value="Lacteos">Lacteos</option>
+                        <option value="Reposteria">Reposteria</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Existencia:</td>
+                <td><input type="text" name="existencia"></td>
+            </tr>
+            <tr>
+                <td>Precio:</td>
+                <td><input type="number" step="0.1" name="precio"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit"></td>
+            </tr>
+        </table>
+    </form>
+    <br>
+    <a href="{{ url_for('vaciar_productos')}}"><button>Vaciar registro de productos</button></a>
+    <h3>Productos Registrados:</h3>
+    {% if productos %}
+    <table border="1" class="table-results">
+        <tr>
+            <th>Producto</th>
+            <th>Categoria</th>
+            <th>Existencia</th>
+            <th>Precio</th>
+        </tr>
+        {% for item in productos %}
+        <tr>
+            <td>{{ item.producto}}</td>
+            <td>{{ item.categoria }}</td>
+            <td>{{ item.existencia}}</td>
+            <td>{{ item.precio }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No se registraron productos</p>
+    {% endif %}
+</body>
+</html>

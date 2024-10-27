@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Registro de libros</title>
+</head>
+<body>
+    <a href="/"><button>VOLVER AL MENU</button></a>
+    <H1>Registro de libros</H1>
+    <form action="{{url_for('reg_libros')}}" method="POST">
+        <table class="table-form">
+            <tr>
+                <td>Titulo</td>
+                <td><input type="text" name="titulo" required></td>
+            </tr>
+            <tr>
+                <td>Autor</td>
+                <td><input type="text" name="autor"  required></td>
+            </tr>
+            <tr>
+                <td>Resumen</td>
+                <td>
+                    <textarea name="resumen" rows="4" cols="50" required></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Medio</td>
+                <td>
+                    <label><input type="radio" name="medio" value="Fisico">Fisico</label><br>
+                    <label><input type="radio" name="medio" value="Magnetico">Magnetico</label>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit"></td>
+            </tr>
+        </table>
+    </form>
+    <br>
+    <a href="{{ url_for('vaciar_libros')}}"><button>Vaciar registro de libros</button></a>
+    <h3>Libros registrados</h3>
+    {% if libros %}
+    <table border="1" class="table-results">
+        <tr>
+            <th>Titulo</th>
+            <th>Autor</th>
+            <th>Resumen</th>
+            <th>Medio</th>
+        </tr>
+        {% for item in libros %}
+        <tr>
+            <td>{{ item.titulo }}</td>
+            <td>{{ item.autor }}</td>
+            <td><textarea rows="4" cols="50"  readonly>{{ item.resumen }}</textarea></td>
+            <td>{{ item.medio }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No se registraron libros</p>
+    {% endif %}
+</body>
+</html>

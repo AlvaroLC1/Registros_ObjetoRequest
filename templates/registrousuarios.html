@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Registro de usuarios</title>
+</head>
+<body>
+    <a href="/"><button>VOLVER AL MENU</button></a>
+    <H1>Registro de usuarios</H1>
+    <form action="{{url_for('reg_usuarios')}}" method="POST">
+        <table class="table-form">
+            <tr>
+                <td>Nombre</td>
+                <td><input type="text" name="nombre" required></td>
+            </tr>
+            <tr>
+                <td>Apellidos:</td>
+                <td><input type="text" name="apellidos"  required></td>
+            </tr>
+            <tr>
+                <td>Correo electronico:</td>
+                <td><input type="email" name="correo" required></td>
+            </tr>
+            <tr>
+                <td>Contraseña:</td>
+                <td><input type="password" name="contrasena"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit"></td>
+            </tr>
+        </table>
+    </form>
+    <br>
+    <a href="{{ url_for('vaciar_inscritos')}}"><button>Vaciar registro de usuarios</button></a>
+    <h3>Usuarios registrados</h3>
+    {% if usuarios %}
+    <table border="1" class="table-results">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellidos:</th>
+            <th>Correo electronico</th>
+            <th>Contraseña:</th>
+        </tr>
+        {% for item in usuarios %}
+        <tr>
+            <td>{{ item.nombre}}</td>
+            <td>{{ item.apellidos }}</td>
+            <td>{{ item.correo}}</td>
+            <td>{{ item.contrasena }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No se registraron usuarios</p>
+    {% endif %}
+</body>
+</html>

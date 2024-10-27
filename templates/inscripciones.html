@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Inscripción en curso</title>
+</head>
+<body>
+    <a href="/"><button>VOLVER AL MENU</button></a>
+    <H1>Inscripción en curso</H1>
+    <form action="{{url_for('inscribir')}}" method="POST">
+        <table class="table-form">
+            <tr>
+                <td>Nombre</td>
+                <td><input type="text" name="nombre" required></td>
+            </tr>
+            <tr>
+                <td>Apellidos:</td>
+                <td><input type="text" name="apellidos"  required></td>
+            </tr>
+            <tr>
+                <td>Curso:</td>
+                <td>
+                    <select name="curso">
+                        <option value="Python basico">Python básico</option>
+                        <option value="Html y Css">Html y Css</option>
+                        <option value="Sistemas de informacion Geografica">Sistemas de informacion Geografica</option>
+                        <option value="Seguridad en Linux">Seguridad en Linux</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit"></td>
+            </tr>
+        </table>
+    </form>
+    <br>
+    <a href="{{ url_for('vaciar_inscritos')}}"><button>Vaciar inscritos</button></a>
+    <h3>Inscripciones registradas</h3>
+    {% if inscritos %}
+    <table border="1" class="table-results">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellidos:</th>
+            <th>Curso:</th>
+        </tr>
+        {% for item in inscritos %}
+        <tr>
+            <td>{{ item.nombre}}</td>
+            <td>{{ item.apellidos }}</td>
+            <td>{{ item.curso}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No se registraron Inscripciones</p>
+    {% endif %}
+</body>
+</html>
